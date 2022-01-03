@@ -1,5 +1,5 @@
 package model;
 
-public class tank {
-
+public class Tank extends Enemy{
+	private int shield;
 }
