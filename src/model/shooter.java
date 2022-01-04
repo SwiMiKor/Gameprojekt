@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PShape;
-
+import model.Fireball;
+import model.Fireball.Direction;
 
 public class Shooter {
 	private int score;
@@ -13,14 +14,22 @@ public class Shooter {
     private float x;
     private float y;
     private int size = 50;
+	Direction dir = Direction.N;
+	
+	
+	public enum Direction {
+        N,E,S,W;
+    }
+	
 
 
 
 
-    public Shooter(int life, int myColor){
+    public Shooter(int life, int myColor, Direction direction){
         
     	this.life = life;
         this.color = myColor;
+        this.dir = direction;
       }
       
       public void drawShooter(PApplet window){
@@ -37,23 +46,7 @@ public class Shooter {
         window.line(x-10, y+13, x+10, y+13);
         window.circle(x-2, y+15, 2);
       }
-
-}
-public static ArrayList getLaser(){
-	return Laser;
+      
 }
 
-public void fire(){
-	Laser z = new Laser(x, y);
-	Laser.add(z);
-}
-  
-
-
-//Taste zum schieﬂen   
-              if (key == KeyEvent.){
-		richtung = richtungs + 0;
-		fire();
-	}
-}
 
