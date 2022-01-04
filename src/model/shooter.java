@@ -25,11 +25,13 @@ public class Shooter {
 
 
 
-    public Shooter(int life, int myColor, Direction direction){
+    public Shooter(float x, float y, int life, int myColor, Direction direction){
         
     	this.life = life;
         this.color = myColor;
         this.dir = direction;
+        this.y = y;
+        this.x = x;
       }
       
       public void drawShooter(PApplet window){

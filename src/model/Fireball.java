@@ -20,7 +20,9 @@ public class Fireball extends Shooter{
 	
 	
 	public Fireball(int speed, float x, float y, int myColor,Direction direction) {
-		super(x,y direction);
+		super(x,y, direction);
+		this.color = myColor;
+		this.speed = speed;
 	}
 	
 	public void drawFireball(PApplet window) {
