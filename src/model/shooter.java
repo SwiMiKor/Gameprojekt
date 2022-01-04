@@ -7,12 +7,8 @@ import processing.core.PShape;
 import model.Fireball;
 import model.Fireball.Direction;
 
-public class Shooter {
+public class Shooter extends Person{
 	private int score;
-	private int life;
-	private int color;
-    private float x;
-    private float y;
     private int size = 50;
 	Direction dir = Direction.N;
 	
@@ -23,31 +19,57 @@ public class Shooter {
 	
 
 
-
-
-    public Shooter(float x, float y, int life, int myColor, Direction direction){
-        
-    	this.life = life;
-        this.color = myColor;
-        this.dir = direction;
-        this.y = y;
-        this.x = x;
+    public Shooter(float x, float y,int speed, int size, int life, int color, Direction direction){
+        super(x, y, speed, size, life, color);
+		this.dir = direction;
       }
       
-      public void drawShooter(PApplet window){
-        window.stroke(0);
-        window.rectMode(window.CENTER);
-        window.fill(color);
-        window.rect(x,y,size, size, 10);
-        window.fill(255);
-        window.strokeWeight(3);
-        window.circle(x - size/4, y, size/3);
-        window.circle(x + size/4,y , size/3);
-        
-        window.fill(0);
-        window.line(x-10, y+13, x+10, y+13);
-        window.circle(x-2, y+15, 2);
-      }
+   
+
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+
+
+
+	public int getSize() {
+		return size;
+	}
+
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+
+	public Direction getDir() {
+		return dir;
+	}
+
+
+	public void setDir(Direction dir) {
+		this.dir = dir;
+	}
+	
+    public void drawShooter(PApplet window){
+  	window.stroke(0, 100, 200);
+		window.strokeWeight(1);
+		window.noFill();
+		PImage img = null;
+		switch (getDir()) {
+		case 37: img = window.loadImage("/resources/wizardleft.jpg");
+		case 39: img = window.loadImage("/resources/wizardright.jpg");
+		}
+    }
       
 }
 
