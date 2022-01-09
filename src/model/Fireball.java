@@ -41,6 +41,5 @@ public class Fireball extends Shooter{
             case S: y = Math.min(window.height, y + speed); break;
             case W: x = Math.max(0, x - speed);
         }
-
     }
 }
