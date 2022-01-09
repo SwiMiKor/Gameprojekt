@@ -60,17 +60,10 @@ public class Shooter extends Person{
 		this.dir = dir;
 	}
 	
-    public void drawShooter(PApplet window){
-  	window.stroke(0, 100, 200);
-		window.strokeWeight(1);
-		window.noFill();
-		PImage img = null;
-		switch (getDir()) {
-		case 37: img = window.loadImage("/resources/wizardleft.jpg");
-		case 39: img = window.loadImage("/resources/wizardright.jpg");
-		}
-    }
-      
 }
+    
+    
+      
+
 
 

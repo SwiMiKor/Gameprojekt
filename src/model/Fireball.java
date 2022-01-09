@@ -19,12 +19,14 @@ public class Fireball extends Shooter{
     }
 	
 	
-	public Fireball(int speed, float x, float y, int myColor,Direction direction) {
-		super(x,y, direction);
-		this.color = myColor;
-		this.speed = speed;
-	}
+
 	
+	public Fireball(float x, float y, int speed, int size, int life, int color, model.Shooter.Direction direction) {
+		super(x, y, speed, size, life, color, direction);
+		
+	}
+
+
 	public void drawFireball(PApplet window) {
 		window.stroke(0);
 		window.fill(color);
