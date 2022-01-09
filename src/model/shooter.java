@@ -60,6 +60,7 @@ public class Shooter extends Person{
 		this.dir = dir;
 	}
 	
+	
 }
     
     
