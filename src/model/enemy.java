@@ -16,6 +16,5 @@ public  class Enemy  extends Person{
 		super(x, y, speed, size, color, life);
 		this.score = score;
 		this.damage = damage;
-		
 	}
 }
