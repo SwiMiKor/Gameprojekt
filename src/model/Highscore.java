@@ -1,11 +1,8 @@
 package model;
 
 import java.util.Date;
-/**
- * contains data for a single highscore
- *
- *
- */
+
+
 public class Highscore {
 	private String name;
 	private Date date;
