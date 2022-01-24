@@ -3,65 +3,99 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import processing.core.PShape;
-import model.Fireball;
-import model.Fireball.Direction;
 
+
+/**
+ * Shooter ist die Spielfigur des Spielers
+ * @author Lukas
+ *
+ */
 public class Shooter extends Person{
-	private int score;
-    private int size = 50;
-	Direction dir = Direction.N;
 	
 	
-	public enum Direction {
-        N,E,S,W;
-    }
+
+    
+		/**
+		 * Konstrukor mit der Elternklasse Person
+		 * 
+		 * @param speed
+		 * @param width
+		 * @param height
+		 * @param x
+		 * @param y
+		 * @param direction
+		 * @param window
+		 */
+		public Shooter(int speed, int width, int height, int x, int y, Direction direction, PApplet window) {
+		super(speed, width, height, x, y, direction);
+		// TODO Auto-generated constructor stub
 	
 
 
-    public Shooter(float x, float y,int speed, int size, int life, int color, Direction direction){
-        super(x, y, speed, size, life, color);
-		this.dir = direction;
+		setImg_E(window.loadImage("/resources/wizardright.png"));
+		setImg_W(window.loadImage("/resources/wizardleft.png"));
+		
       }
       
+
+
+
+		
+	/**
+	 * Zeichnet den Shooter und die Feuerbälle	
+	 */
+	public void draw(PApplet window) {
+		window.noStroke();
+		window.noFill();
+		window.rect(300, 510,60, 90);
+		
+		PImage img = null;
+		switch (getDirection()) {
+		case E: img = getImg_E(); break; 
+		case W: img = getImg_W(); break; 			
+		}
+
+		for (Fireball p : getFireballListe()) {
+			p.draw(window);
+			p.move(window);
+		}
+		
+		window.image(img, getX(), getY());
+	}
+	
+
    
-
-
-
-	public int getScore() {
-		return score;
+  
+    
+    public ArrayList<Fireball> fireballListe = new ArrayList<>();
+	public void shoot(PApplet window) {
+		switch(direction) {
+		
+		case E: getFireballListe().add(new Fireball(2 , 20, 50, 260, 510, direction, window)); break;
+		case W: getFireballListe().add(new Fireball(2 , 20, 50, 240, 510, direction, window)); break;
+		}
 	}
 
-
-	public void setScore(int score) {
-		this.score = score;
+	
+	
+	/**
+	 * @return the FireballListe
+	 */
+	public ArrayList<Fireball> getFireballListe() {
+		return fireballListe;
 	}
 
-
-
-
-
-	public int getSize() {
-		return size;
-	}
-
-
-	public void setSize(int size) {
-		this.size = size;
-	}
-
-
-	public Direction getDir() {
-		return dir;
-	}
-
-
-	public void setDir(Direction dir) {
-		this.dir = dir;
+	/**
+	 * @param FireballListe the FireballListe to set
+	 */
+	public void setFireballListe(ArrayList<Fireball> FireballListe) {
+		this.fireballListe = FireballListe;
 	}
 	
 	
+
 }
+	
     
     
       
