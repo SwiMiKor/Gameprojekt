@@ -5,7 +5,7 @@ import processing.core.PFont;
 
 /**
  * StartViewController kümmert sich um die Darstellung vom Startbildschirm 
- * @author Lukas
+ * @author Lukas teils Wendelin
  *
  */
 public class StartViewController extends LevelViewController{

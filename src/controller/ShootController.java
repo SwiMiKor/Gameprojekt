@@ -3,7 +3,9 @@ import model.Person;
 import processing.core.PApplet;
 
 /**
- * Main Klasse vom Projekt. ShootController steuert das ganze Programm.
+ *Main Klasse vom Projekt. ShootController steuert das ganze Programm.
+ *  @author Lukas teils Wendelin
+ *
  */
 public class ShootController extends PApplet{
 	

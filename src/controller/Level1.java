@@ -10,7 +10,7 @@ import processing.core.PApplet;
 
 /**
  * Level 1 kümmert sich um die Darstellung vom Level 1 
- * @author Lukas
+ * @author Lukas teils Wendelin
  *
  */
 public class Level1 extends LevelViewController{
