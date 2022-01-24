@@ -2,6 +2,9 @@ package controller;
 import model.Person;
 import processing.core.PApplet;
 
+/**
+ * Main Klasse vom Projekt. ShootController steuert das ganze Programm.
+ */
 public class ShootController extends PApplet{
 	
 	
@@ -12,33 +15,45 @@ public class ShootController extends PApplet{
 	private Level3 level3View;
 	
 	
-	
+	/**
+	 * 4 Status des Spieles
+	 */
 	enum SpielZustand{
-		Start, Level1, Level2, Level3, Spielende;
+		Start, Level1, Level2, Level3;
 	}
 	
 	SpielZustand state = SpielZustand.Start;
 	
 	
-
+	/**
+	 * Main Methode
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//start
 		PApplet.main("controller.ShootController");
 	}
-
+	/**
+	 * Settings definiert die Fenstergrösse
+	 */
 	public void settings() {
 		size(640,640);
 	}
-
+	/**
+	 * setup wird einmal ausgeführt. Benötigte Vorbereitungen werden erledigt.
+	 */
 	@Override
 	public void setup() {
 		startView.restart(this);
 		level1View = new Level1(this);
 		level2View = new Level2(this);
 		level3View = new Level3(this);
+		
 	}
 	
-	
+		/**
+		 * Die Status des Spiels werden gezeichnet
+		 */
 		@Override
 		public void draw() {
 			switch (state) {
@@ -46,20 +61,28 @@ public class ShootController extends PApplet{
 			case Level1: level1View.draw(this); break;
 			case Level2: level2View.draw(this); break;
 			case Level3: level3View.draw(this); break;
+			
 			}
 	}
+		
+		/**
+		 * Die Methode mouseClicked verarbeited die Mausklicks und ruft die entsprechenden Funktionen zum Status des Spiels auf	
+		 */
 		public void mouseClicked() {
-			System.out.println(mouseX + " : " + mouseY);
 			switch (state) {
 			case Start: mouseClickedStart(); break;
 			default: mouseClickedInGame(); break;
 			}
 		}
-
+		/**
+		 * wird verarbeitet während man im Startbildschirm ist
+		 */
 		public void mouseClickedStart() {
 
 		}
-
+		/**
+		 * wird verarbeitet während man am Spielen ist
+		 */
 		public void mouseClickedInGame() {
 			LevelViewController level = null;
 
@@ -73,16 +96,16 @@ public class ShootController extends PApplet{
 			
 		}
 
-		public void mouseClickedEnde() {
+		
 
-		}
-
+		/**
+		 * keyPressed verarbeited die eingegebene Taste und ruft die entsprechenden Funktionen zum Status des Spiels auf
+		 */
 		@Override
 		public void keyPressed() {
 
 			switch (state) {
 			case Start: keyPressedStart(); break;
-			case Spielende: keyPressedEnde(); break;
 			default: keyPressedInGame(); break;
 			}
 
@@ -108,7 +131,7 @@ public class ShootController extends PApplet{
 		}
 
 		/**
-		 * Das ist die keyPressed währenddem Spielen.
+		 * KeyPressed Methode während dem Spielen
 		 */
 		public void keyPressedInGame() {
 			LevelViewController level = null;
@@ -128,24 +151,23 @@ public class ShootController extends PApplet{
 				}
 			}
 
-			
+			if (keyCode == 10) {// KeyCode 10 ist "Enter"
+				startView.restart(this);
+				state = SpielZustand.Start;
+			}
 
 			System.out.println("Kordinaten (" + level.getShooter().getX() + "/" + level.getShooter().getY() + ")");
 			System.out.println("ProjektileAnzahl " + level.getShooter().getFireballListe().size());
 			
 		}
+		
+		
 
-		/**
-		 * Das ist die keyPressed am Ende des Spieles. 
-		 */
-		public void keyPressedEnde() {
-			if (keyCode == 10) {// KeyCode 10 ist "Enter"
-				startView.restart(this);
-				state = SpielZustand.Start;
-			}
-		}
+		
+		
+			
+		
 
 	}
-
 
 
