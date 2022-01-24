@@ -3,18 +3,28 @@ package controller;
 import processing.core.PApplet;
 import processing.core.PFont;
 
-
-public class StartViewController extends View{
+/**
+ * StartViewController kümmert sich um die Darstellung vom Startbildschirm 
+ * @author Lukas
+ *
+ */
+public class StartViewController extends LevelViewController{
 
 	public StartViewController() {
 		super();
 	}
-
+	
+	/**
+	 * lädt die benötigten Objekte
+	 */
 	@Override
 	public void restart(PApplet window) {
 		setBg(window.loadImage("/resources/gameboard.jpg"));
 	}
-
+	
+	/**
+	 * Zeichnet/ Schreibt
+	 */
 	@Override
 	public void draw(PApplet window) {
 		window.background(getBg());
