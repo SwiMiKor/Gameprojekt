@@ -1,17 +1,27 @@
 package controller;
 
 import java.util.ArrayList;
+
 import java.awt.Rectangle;
 
 import model.Enemy;
 import model.Fireball;
 import model.Shooter;
 import processing.core.PApplet;
+import view.View;
 
 
-public abstract class LevelViewController extends View implements Subject{
+/**
+ * Verwaltet alle Level
+ * @author Lukas
+ *
+ */
+public abstract class LevelViewController extends View {
 	
-	private Shooter Shooter;
+	/**
+	 * Konstruktor von der Klasse LevelviewController
+	 */
+	private Shooter shooter;
 	private ArrayList<Enemy> enemyListe = new ArrayList<>();
 	private boolean levelComplete = false;
 	private boolean gameOver = false;
@@ -22,76 +32,110 @@ public abstract class LevelViewController extends View implements Subject{
 	public abstract void draw(PApplet window);
 	
 	
-	
+	/**
+	 * Gameover Fenster
+	 */
 	public void gameOver(PApplet window) {
 		window.fill(100, 0, 1);
 		window.textSize(60);
-		window.text("Noob you died", 200,100);
+		window.text("Noob you died", 150,100);
 	}
+	
+	/**
+	 * Levelcomplete Fenster
+	 */
 	public void levelComplete(PApplet window) {
 		window.fill(0, 100, 1);
 		window.textSize(60);
-		window.text("GG...du hast das Level geschlagen", 200,100);
+		window.text("GG, You're a winner", 10,100);
 	}
-		/*
-		 * 
-		 */
-		public void checkCollisions() {
-			Rectangle sBounds = Shooter.getBounds();
-			for(Enemy e : enemyListe) {
-				Rectangle eBounds = e.getBounds();
-				
-				if(e.isBroken()) {
-					eBounds = new Rectangle(-100, -100, 50, 50);
-					
-					if(eBounds.intersects(sBounds)) {
-						setGameOver(true);
-						System.out.println( eBounds +" "+sBounds);
-					}
-				}
-				for(Fireball fl : Shooter.getFireballListe()) {
-					Rectangle flBounds = fl.getBounds();
-					
-					if(eBounds.intersects(flBounds)) {
-						e.setBroken(true);
-						notifyAllObserver("You killed someone");
-					}
-				}
-
-			}
-	}
-
-
+	
 	/**
-	 * @param Shooter the Shooter to set
+	 * Testet ob die Objekte kollidieren
 	 */
-	public void setShooter(Shooter Shooter) {
-		this.Shooter = Shooter;
+	public void checkCollisions() {
+		Rectangle sBounds = shooter.getBounds();
+		for(Enemy e : enemyListe) {
+			Rectangle eBounds = e.getBounds();
+				if(eBounds.intersects(sBounds)) {
+					setGameOver(true);	
+				}
+			
+			for(Fireball fl : shooter.getFireballListe()) {
+				Rectangle flBounds = fl.getBounds();
+				/**
+				 * falls der Feuerball den Enemy trifft werden die getroffenen Objekte auf broken gestellt.
+				 */
+				if(flBounds.intersects(eBounds)) {
+					e.setBroken(true);
+					fl.setBroken(true);
+				
+				}if(e.isBroken()) {
+					/**
+					 * Testet ob die enemyListe noch Objekte hat... falls nicht hat man das Level besiegt
+					 */
+					ArrayList<Enemy> enemy2Liste = (ArrayList<Enemy>) enemyListe.clone();
+					enemy2Liste.remove(e);
+					enemyListe = (ArrayList<Enemy>) enemy2Liste.clone();
+					if(enemyListe.size() == 1) {
+						setLevelComplete(true);
+					}
+					
+					/**
+					 * Verschiebt den Enemy so, damit man ihn nicht mehr sieht
+					 */
+					e.x = -100;
+					e.y = -100;
+				}
+				
+					/**
+					 * Verschiebt den Feuerball so, damit man ihn nicht mehr sieht
+					 */
+				if(fl.isBroken()) {
+					fl.x = -100;
+					fl.y = -100;
+				}
+				
+				}
+					
+			}
+
+		}
+		
+
+
+
+	/**
+	 * @param Shooter to set
+	 */
+	public void setShooter(Shooter shooter) {
+		this.shooter = shooter;
 	}
 
 	/**
-	 * @return the r
+	 * @return Shooter
 	 */
 	public Shooter getShooter() {
-		return Shooter;
+		return shooter;
 	}
 
 	/**
-	 * @return the SoldierListe
+	 * @return the EnemyListe
 	 */
 	public ArrayList<Enemy> getEnemyListe() {
 		return enemyListe;
 	}
 
 	/**
-	 * @param SoldierListe the SoldierListe to set
+	 * @param EnemyListe the EnemyListe to set
 	 */
 	public void setEnemyListe(ArrayList<Enemy> enemyListe) {
 		this.enemyListe = enemyListe;
 	}
+	
 
 	/**
-	 * @param levelComplete the levelCompletee to set
+	 * @return the levelComplete
 	 */
 	public void setLevelComplete(boolean levelComplete) {
 		this.levelComplete = levelComplete;
@@ -110,38 +154,12 @@ public abstract class LevelViewController extends View implements Subject{
 		return gameOver;
 	}
 	/**
-	 * @param gameOver the gameOver to set
+	 *  @param gameOver the gameOver to set
 	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 	
-	/**
-	 * Diese Methode fügt Observer-Objekte der GegnerListe hinzu.
-	 * @param observer das Objekt das hinzugefügt werden soll.
-	 */
-	@Override
-	public void attach(Observer observer) {
-		enemyListe.add((Enemy) observer);
-	}
-	
-	/**
-	 * Diese Methode entfernt Observer-Objekte fon der GegnerListe.
-	 * @param observer das Objekt das entfernt werden soll.
-	 */
-	@Override
-	public void detach(Observer observer) {
-		enemyListe.remove((Enemy) observer);
-	}
-	/**
-	 * Diese Methode übermitelt allen Observer der GegnerListe eine Nachricht.
-	 * @param nachricht die Nachricht die allen Observer übermitelt werden soll.
-	 */
-	@Override
-	public void notifyAllObserver(String nachricht) {
-		for(Enemy e : enemyListe) {
-			e.update(nachricht);
-		}
-	}
+
 }
 
