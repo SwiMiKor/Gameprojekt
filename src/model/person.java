@@ -45,13 +45,13 @@ public abstract class Person {
 	}
 	
 	/**
-	 * Abstrakte Draw Methode
+	 *Draw Methode
 	 */
 	public void draw(PApplet window) {
 		
 	}
 	/**
-	 * Abstrakte Move Methode
+	 *Move Methode
 	 */
 	public void move(PApplet window) {
 		switch(direction) {
