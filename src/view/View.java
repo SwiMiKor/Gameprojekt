@@ -3,8 +3,9 @@ package view;
 import processing.core.PApplet;
 import processing.core.PImage;
 /**
+ * von Wendelin abgeschrieben
  * View ist zuständig für alle Spielfelder welche es gibt (StartViewController, Level1, Level2, Level3)
- * @author Lukas
+ * @author Wendelin 
  *
  */
 public abstract class View {
