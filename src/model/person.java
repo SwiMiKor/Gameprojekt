@@ -1,62 +1,143 @@
 package model;
 
+import processing.core.PApplet;
+import processing.core.PImage;
+import java.awt.Rectangle;
+
+/**
+ * Person ist die Elterklasse von Shooter, Fireball und Enemy
+ * @author Lukas
+ *
+ */
 public abstract class Person {
 	
-	private float x;
-    private float y;
-	private int speed = 10;
-	private int size = 50;
-	private int color;
-	private int life;
+	public int x;
+    public int y;
+	private int speed;
+	private int width;
+	private int height;
+	private PImage img_E;
+	private PImage img_W;
 	
+	Direction direction = Direction.W;
+	
+	
+	
+	public enum Direction {
+		E, W;
+	}
+	/**
+	 * @param hp
+	 * @param speed
+	 * @param size
+	 * @param x
+	 * @param y
+	 * @param direction
+	 */
+	
+	public Person(int speed, int width, int height, int x, int y, Direction direction) {
+		this.speed = speed;
+		this.width = width;
+		this.height = height;
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+	}
+	
+	/**
+	 * Abstrakte Draw Methode
+	 */
+	public void draw(PApplet window) {
+		
+	}
+	/**
+	 * Abstrakte Move Methode
+	 */
+	public void move(PApplet window) {
+		switch(direction) {
+		case E: setX(getX() + getSpeed()); break;
+		case W: setX(getX() - getSpeed()); break;
+		}
+
+	
+	}
+
+	/*
+	 * Hitbox der Figuren
+	 */
+	public Rectangle getBounds() {
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
+	}
 	
 
-	public Person(float x, float y, int speed, int size, int color, int life) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.speed = speed;
-		this.size = size;
-		this.color = color;
-		this.life = life;
-	}
-	
-	public float getX() {
+
+	public int getX() {
 		return x;
 	}
-	public void setX(float x) {
+
+	public void setX(int x) {
 		this.x = x;
 	}
-	public float getY() {
+
+	public int getY() {
 		return y;
 	}
-	public void setY(float y) {
+
+	public void setY(int y) {
 		this.y = y;
 	}
+
 	public int getSpeed() {
 		return speed;
 	}
+
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	public int getSize() {
-		return size;
+
+	public int getWidth() {
+		return width;
 	}
-	public void setSize(int size) {
-		this.size = size;
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
-	public int getColor() {
-		return color;
+
+	public int getHeight() {
+		return height;
 	}
-	public void setColor(int color) {
-		this.color = color;
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
-	public int getLife() {
-		return life;
+
+	public PImage getImg_E() {
+		return img_E;
 	}
-	public void setLife(int life) {
-		this.life = life;
+
+	public void setImg_E(PImage img_E) {
+		this.img_E = img_E;
 	}
+
+	public PImage getImg_W() {
+		return img_W;
+	}
+
+	public void setImg_W(PImage img_W) {
+		this.img_W = img_W;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+
+	
+
 	
 	
 }
