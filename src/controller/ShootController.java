@@ -1,4 +1,4 @@
-package controller;
+Stepackage controller;
 import model.Person;
 import processing.core.PApplet;
 
